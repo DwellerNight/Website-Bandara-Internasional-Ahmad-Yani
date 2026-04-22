@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pemesanan Layanan Khusus - Bandara Ahmad Yani Semarang</title>
+    <link rel="icon" type="image/png" href="ikon.png">
+    <link rel="stylesheet" href="Bandara.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        /* Custom Styles for Pemesanan Page */
+        .booking-hero {
+            background: linear-gradient(135deg, #0077b6 0%, #00b4d8 100%);
+            padding: 60px 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .booking-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .booking-hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .booking-hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .booking-container {
+            padding: 50px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .booking-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+        }
+
+        /* Service Selection Card */
+        .service-selection {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .service-selection h3 {
+            font-family: 'Montserrat', sans-serif;
+            color: #0077b6;
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .service-option {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 18px;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .service-option:hover {
+            border-color: #0077b6;
+            background: #f8f9fa;
+        }
+
+        .service-option.selected {
+            border-color: #0077b6;
+            background: linear-gradient(135deg, #e4eff9 0%, #f8f9fa 100%);
+        }
+
+        .service-option input {
+            display: none;
+        }
+
+        .service-option .radio-custom {
+            width: 22px;
+            height: 22px;
+            border: 2px solid #0077b6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .service-option.selected .radio-custom::after {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background: #0077b6;
+            border-radius: 50%;
+        }
+
+        .service-option i {
+            font-size: 24px;
+            color: #0077b6;
+            width: 40px;
+            text-align: center;
+        }
+
+        .service-option .service-info h4 {
+            color: #333;
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .service-option .service-info p {
+            color: #666;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        /* Booking Form */
+        .booking-form-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+
+        .booking-form-container h2 {
+            font-family: 'Montserrat', sans-serif;
+            color: #0077b6;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+
+        .booking-form-container .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .form-group label i {
+            color: #0077b6;
+            margin-right: 8px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #0077b6;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(0,119,182,0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-group select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230077b6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 18px;
+        }
+
+        /* Price Info Box */
+        .price-info {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border-left: 4px solid #f3c303;
+        }
+
+        .price-info h4 {
+            color: #856404;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .price-info p {
+            color: #856404;
+            font-size: 0.9rem;
+            margin: 5px 0;
+        }
+
+        .price-info .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0077b6;
+            margin-top: 10px;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #f3c303 0%, #ffd700 100%);
+            color: #000;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 30px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(243, 195, 3, 0.4);
+        }
+
+        /* Contact Info */
+        .contact-info {
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .contact-info h4 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .contact-item i {
+            color: #0077b6;
+            width: 20px;
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            border-left: 4px solid #28a745;
+            margin-top: 20px;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .success-message i {
+            font-size: 50px;
+            color: #28a745;
+            margin-bottom: 15px;
+        }
+
+        .success-message h3 {
+            color: #155724;
+            margin-bottom: 10px;
+        }
+
+        .success-message p {
+            color: #155724;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .booking-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .service-selection {
+                position: static;
+            }
+
+            .booking-hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .booking-form-container {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-content">
+            <div class="text-header">
+                <h1>Bandara Internasional</h1>
+                <h1>Jenderal Ahmad Yani</h1>
+                <p class="typing">Gerbang Udara Kota Semarang</p>
+            </div>
+            <div class="logo-header">
+                <div class="logo-kotak">
+                    <img src="Ahmadyaniairportlogo.png" alt="Logo Ahmad Yani">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- NAVIGASI -->
+    <nav class="navigasi">
+        <ul class="menu">
+            <li><a href="layanan.html" class="menu-item"><i class="fas fa-arrow-left"></i> Kembali ke Layanan</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <div class="booking-hero">
+        <h1><i class="fas fa-calendar-check"></i> Pemesanan Layanan Khusus</h1>
+        <p>Pesan layanan khusus di Airport Ahmad Yani dengan mudah dan cepat</p>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="booking-container">
+        
+        <div class="booking-grid">
+            
+            <!-- Service Selection -->
+            <div class="service-selection">
+                <h3><i class="fas fa-list-ul"></i> Pilih Layanan</h3>
+                
+                <label class="service-option selected" data-service="trac" data-price="470000">
+                    <input type="radio" name="service" value="trac" checked>
+                    <div class="radio-custom"></div>
+                    <i class="fas fa-car"></i>
+                    <div class="service-info">
+                        <h4>TRAC</h4>
+                        <p>Sopir profesional & mobil terbaru</p>
+                        <p style="color: #0077b6; font-weight: 700;">Mulai dari Rp 470.000</p>
+                    </div>
+                </label>
+                
+                <label class="service-option" data-service="goldenbird" data-price="100000">
+                    <input type="radio" name="service" value="goldenbird">
+                    <div class="radio-custom"></div>
+                    <i class="fas fa-car"></i>
+                    <div class="service-info">
+                        <h4>Golden Bird</h4>
+                        <p>Sopir profesional & mobil terbaru</p>
+                        <p style="color: #0077b6; font-weight: 700;">Mulai dari Rp 100.000</p>
+                    </div>
+                </label>
+
+                <div class="contact-info">
+                    <h4><i class="fas fa-headset"></i> Butuh Bantuan?</h4>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+62 24 86000600</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>contact@injourneyairports.id</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Booking Form -->
+            <div class="booking-form-container">
+                <h2><i class="fas fa-clipboard-list"></i> Formulir Pemesanan</h2>
+                <p class="subtitle">Silakan lengkapi data di bawah untuk memesan layanan</p>
+
+                <form id="bookingForm">
+                    <!-- Service Info Display -->
+                    <div class="price-info" id="priceInfo">
+                        <h4><i class="fas fa-info-circle"></i> Informasi Harga</h4>
+                        <p id="serviceDesc">Rental mobil dengan sopir profesional untuk kebutuhan transportasi Anda.</p>
+                        <div class="price" id="servicePrice">Mulai dari Rp 350.000</div>
+                    </div>
+
+                    <!-- Personal Info -->
+                    <h3 style="color: #0077b6; margin-bottom: 20px; font-size: 1.1rem;"><i class="fas fa-user"></i> Data Diri</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-user"></i> Nama Lengkap</label>
+                            <input type="text" id="nama" name="nama" placeholder="Masukkan nama lengkap Anda" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-phone"></i> No. Telepon</label>
+                            <input type="tel" id="telepon" name="telepon" placeholder="Contoh: 0812xxxxx" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-envelope"></i> Email</label>
+                        <input type="email" id="email" name="email" placeholder="email@anda.com" required>
+                    </div>
+
+                    <!-- Service Specific Fields for TRAC -->
+                    <div id="tracFields" style="display: block;">
+                        <h3 style="color: #0077b6; margin-bottom: 20px; font-size: 1.1rem;"><i class="fas fa-car"></i> Detail Rental TRAC</h3>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fas fa-car-side"></i> Jenis Mobil</label>
+                                <select id="jenisMobilTrac" name="jenisMobilTrac">
+                                    <option value="">Pilih Jenis Mobil</option>
+                                    <option value="sedan">Toyota Avanza</option>
+                                    <option value="suv">Innova</option>
+                                    <option value="mpv">Camry Fortuner</option>
+                                    <option value="minibus">Hi Ace</option>
+                                    <option value="luxury">Alphard</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-users"></i> Jumlah Penumpang</label>
+                                <select id="jumlahPenumpangTrac" name="jumlahPenumpangTrac">
+                                    <option value="1">1 Orang</option>
+                                    <option value="2">2 Orang</option>
+                                    <option value="3">3 Orang</option>
+                                    <option value="4">4 Orang</option>
+                                    <option value="5">5 Orang</option>
+                                    <option value="6">6 Orang</option>
+                                    <option value="7">7 Orang</option>
+                                    <option value="8">8 Orang atau lebih</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Service Specific Fields for Golden Bird -->
+                    <div id="goldenbirdFields" style="display: none;">
+                        <h3 style="color: #0077b6; margin-bottom: 20px; font-size: 1.1rem;"><i class="fas fa-car"></i> Detail Rental Golden Bird</h3>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fas fa-car-side"></i> Jenis Mobil</label>
+                                <select id="jenisMobilGoldenBird" name="jenisMobilGoldenBird">
+                                    <option value="">Pilih Jenis Mobil</option>
+                                    <option value="sedan">Toyota Avanza</option>
+                                    <option value="suv">Kijang Innova</option>
+                                    <option value="luxury">Alphard</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-users"></i> Jumlah Penumpang</label>
+                                <select id="jumlahPenumpangGoldenBird" name="jumlahPenumpangGoldenBird">
+                                    <option value="1">1 Orang</option>
+                                    <option value="2">2 Orang</option>
+                                    <option value="3">3 Orang</option>
+                                    <option value="4">4 Orang</option>
+                                    <option value="5">5 Orang</option>
+                                    <option value="6">6 Orang</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Date & Time -->
+                    <h3 style="color: #0077b6; margin-bottom: 20px; font-size: 1.1rem; margin-top: 25px;"><i class="fas fa-calendar-alt"></i> Jadwal</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-calendar"></i> Tanggal</label>
+                            <input type="date" id="tanggal" name="tanggal" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-clock"></i> Jam</label>
+                            <input type="time" id="jam" name="jam" required>
+                        </div>
+                    </div>
+
+                    <!-- Flight Info -->
+                    <div class="form-group">
+                        <label><i class="fas fa-plane-departure"></i> No. Penerbangan (Opsional)</label>
+                        <input type="text" id="noPenerbangan" name="noPenerbangan" placeholder="Contoh: GA 123">
+                    </div>
+
+                    <!-- Notes -->
+                    <div class="form-group">
+                        <label><i class="fas fa-comment"></i> Catatan Tambahan</label>
+                        <textarea id="catatan" name="catatan" placeholder="Tuliskan kebutuhan khusus atau informasi tambahan..."></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Kirim Pemesanan
+                    </button>
+                </form>
+
+                <!-- Success Message -->
+                <div class="success-message" id="successMessage">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Pemesanan Berhasil!</h3>
+                    <p>Terima kasih telah memesan layanan kami. Tim kami akan menghubungi Anda dalam 24 jam untuk konfirmasi.</p>
+                    <p style="margin-top: 15px; font-size: 0.9rem;">Invoice akan dikirim ke email Anda.</p>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-kolom">
+                <h4>AHMAD YANI AIRPORT</h4>
+                <p>Bandara Ahmad Yani merupakan pintu gerbang</p>
+                <p>penerbangan di Jawa Tengah.</p>
+                <p>Memberikan pelayanan terbaik</p>
+                <p>bagi kenyamanan perjalanan Anda</p>        
+                <p class="logo-footer">
+                    <img src="Angkasa.png" alt="Logo Angkasa"></p>
+            </div>
+            
+            <div class="footer-kolom">
+                <h4>NAVIGASI</h4>
+                <ul class="footer-menu">
+                    <li><a href="Bandara.html#home">Home</a></li>
+                    <li><a href="Bandara.html#profil">Profil</a></li>
+                    <li><a href="Bandara.html#fasilitas">Fasilitas</a></li>
+                    <li><a href="Bandara.html#galeri">Galeri</a></li>
+                    <li><a href="Bandara.html#kontak">Kontak</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-kolom">
+                <h4>HUBUNGI KAMI</h4>
+                <p>Alamat: Jl. Bandara Ahmad Yani, Semarang</p>
+                <p>Telepon: +62 24 86000600</p>
+                <p>Email: contact@injourneyairports.id</p>
+            </div>
+
+            <div class="footer-kolom">
+                <h4>IKUTI KAMI</h4>
+                    <div class="ikon-sosial">
+                    <a href="https://web.facebook.com/BandaraAhmadYani/?locale=id_ID&_rdc=1&_rdr#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/semarangairport/"><i class="fab fa-instagram"></i></a>
+                    <a href="https://x.com/SemarangAP1"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.youtube.com/hashtag/bandaraahmadyani"><i class="fab fa-youtube"></i></a>
+                    <p class="logo-footer1">
+                        <img src="Ahmadyaniairportlogo.png" alt="Logo Angkasa"></p>
+                    </div>
+            </div>
+        </div>
+        <div class="footer-bawah">
+            <p>&copy; 2026 Ahmad Yani Airport. All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <script>
+        // Service descriptions and prices
+        const serviceData = {
+            trac: {
+                name: 'TRAC',
+                desc: 'Layanan TRAC dengan sopir profesional dan mobil terbaru.',
+                price: 'Mulai dari Rp 470.000',
+                priceValue: 470000
+            },
+            goldenbird: {
+                name: 'Golden Bird',
+                desc: 'Layanan Golden Bird dengan sopir profesional dan mobil terbaru.',
+                price: 'Mulai dari Rp 100.000',
+                priceValue: 100000
+            }
+        };
+
+        // Service selection
+        const serviceOptions = document.querySelectorAll('.service-option');
+        const serviceInputs = document.querySelectorAll('input[name="service"]');
+        
+        serviceOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove selected class from all options
+                serviceOptions.forEach(opt => opt.classList.remove('selected'));
+                // Add selected class to clicked option
+                this.classList.add('selected');
+                // Check the radio button
+                const radio = this.querySelector('input[type="radio"]');
+                radio.checked = true;
+                
+                // Update price info
+                const serviceType = this.dataset.service;
+                updatePriceInfo(serviceType);
+                
+                // Show/hide service-specific fields
+                updateServiceFields(serviceType);
+            });
+        });
+
+        function updatePriceInfo(serviceType) {
+            const data = serviceData[serviceType];
+            document.getElementById('serviceDesc').textContent = data.desc;
+            document.getElementById('servicePrice').textContent = data.price;
+        }
+
+        function updateServiceFields(serviceType) {
+            // Hide all service-specific fields
+            document.getElementById('tracFields').style.display = 'none';
+            document.getElementById('goldenbirdFields').style.display = 'none';
+            
+            // Show the relevant fields based on service type
+            if (serviceType === 'trac') {
+                document.getElementById('tracFields').style.display = 'block';
+            } else if (serviceType === 'goldenbird') {
+                document.getElementById('goldenbirdFields').style.display = 'block';
+            }
+        }
+
+        // Set minimum date to today
+        const dateInput = document.getElementById('tanggal');
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.setAttribute('min', today);
+
+        // Form submission
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get selected service
+            const selectedService = document.querySelector('input[name="service"]:checked').value;
+            const serviceName = serviceData[selectedService].name;
+            
+            // Get form data
+            const formData = {
+                layanan: serviceName,
+                nama: document.getElementById('nama').value,
+                telepon: document.getElementById('telepon').value,
+                email: document.getElementById('email').value,
+                tanggal: document.getElementById('tanggal').value,
+                jam: document.getElementById('jam').value,
+                noPenerbangan: document.getElementById('noPenerbangan').value,
+                catatan: document.getElementById('catatan').value
+            };
+            
+            // Add service-specific data based on selected service
+            if (selectedService === 'trac') {
+                formData.jenisMobil = document.getElementById('jenisMobilTrac').value;
+                formData.jumlahPenumpang = document.getElementById('jumlahPenumpangTrac').value;
+            } else if (selectedService === 'goldenbird') {
+                formData.jenisMobil = document.getElementById('jenisMobilGoldenBird').value;
+                formData.jumlahPenumpang = document.getElementById('jumlahPenumpangGoldenBird').value;
+            }
+            
+            // Log form data (in real application, this would be sent to server)
+            console.log('Form Data:', formData);
+            
+            // Show success message
+            document.getElementById('bookingForm').style.display = 'none';
+            document.getElementById('successMessage').classList.add('show');
+            
+            // Scroll to success message
+            document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Initialize
+        updatePriceInfo('trac');
+    </script>
+</body>
+</html>

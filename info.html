@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informasi - Bandara Ahmad Yani Semarang</title>
+    <link rel="icon" type="image/png" href="ikon.png">
+    <link rel="stylesheet" href="Bandara.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+                /* Custom Styles for Info Page */
+        .info-hero {
+            background: linear-gradient(135deg, #0077b6 0%, #00b4d8 100%);
+            padding: 60px 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .info-hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .info-hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Tab Styles */
+        .tab-container {
+            margin-bottom: 30px;
+        }
+        
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            background: #0077b6;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .tab-btn:hover {
+            background: #005f91;
+            transform: translateY(-2px);
+        }
+        
+        .tab-btn.active {
+            background: #f3c303;
+            color: #000;
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Info Cards */
+        .info-section {
+            margin-bottom: 30px;
+        }
+        
+        .info-header {
+            background: linear-gradient(135deg, #0077b6 0%, #005f91 100%);
+            color: white;
+            padding: 20px 25px;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .info-header i {
+            font-size: 28px;
+            color: #f3c303;
+        }
+        
+        .info-header h3 {
+            margin: 0;
+            font-size: 20px;
+        }
+        
+        .info-body {
+            background: white;
+            padding: 25px;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .info-body p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+            color: #333;
+        }
+        
+        .info-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .info-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .info-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .info-list li i {
+            color: #0077b6;
+            margin-top: 4px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #f3c303 0%, #ffd700 100%);
+            color: #000;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(243, 195, 3, 0.4);
+        }
+
+        /* Airline Grid */
+        .airline-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .airline-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        .airline-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .airline-logo {
+            width: 70px;
+            height: 70px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .airline-info h4 {
+            margin: 0 0 5px 0;
+            color: #333;
+            font-size: 16px;
+        }
+        
+        .airline-info p {
+            margin: 0;
+            font-size: 13px;
+            color: #666;
+        }
+        
+        /* Facility Icons */
+        .facility-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .facility-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .facility-item i {
+            color: #0077b6;
+            font-size: 20px;
+        }
+        
+        /* Status Badge */
+        .status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            background: #28a745;
+            color: white;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        /* Back Button */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #0077b6;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-bottom: 20px;
+            transition: background 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background: #005f91;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER (atas website) -->
+    <header class="header">
+        <div class="header-content">
+            <div class="text-header">
+                <h1>Bandara Internasional</h1>
+                <h1>Jenderal Ahmad Yani</h1>
+                <p class="typing">Gerbang Udara Kota Semarang</p>
+            </div>
+            <div class="logo-header">
+                <div class="logo-kotak">
+                    <img src="Ahmadyaniairportlogo.png" alt="Logo Ahmad Yani">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- NAVIGASI -->
+    <nav class="navigasi">
+        <ul class="menu">
+            <li><a href="index.html" class="menu-item"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</a></li>
+        </ul>
+    </nav>
+
+        <!-- HERO SECTION -->
+    <div class="info-hero">
+        <h1><i class="fas fa-info-circle"></i> Informasi Bandara</h1>
+        <p>Kami menyediakan informasi berkualitas untuk kenyamanan perjalanan Anda</p>
+    </div>
+
+    <div class="container">
+        <main class="content">
+            
+            <div class="tab-container">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" onclick="openTab('kedatangan')">
+                        <i class="fas fa-plane-arrival"></i> Kedatangan
+                    </button>
+                    <button class="tab-btn" onclick="openTab('keberangkatan')">
+                        <i class="fas fa-plane-departure"></i> Keberangkatan
+                    </button>
+                    <button class="tab-btn" onclick="openTab('airline')">
+                        <i class="fas fa-plane"></i> Informasi Airline
+                    </button>
+                </div>
+                
+                <!-- KEDATANGAN TAB -->
+                <div id="kedatangan" class="tab-content active">
+                    <div class="info-section">
+                        <div class="info-header">
+                            <i class="fas fa-building"></i>
+                            <h3>Terminal Kedatangan</h3>
+                        </div>
+                        <div class="info-body">
+                            <p>Terminal Kedatangan Bandara Ahmad Yani memiliki fasilitas lengkap untuk kenyamanan penumpang yang baru tiba. Terminal ini dirancang dengan konsep modern dan efisien untuk memberikan pengalaman terbaik bagi wisatawan domestik maupun internasional.</p>
+                            <ul class="info-list">
+                                <li>
+                                    <i class="fas fa-check-circle"></i>
+                                    <div>
+                                        <strong>Terminal Domestik</strong>
+                                        <p>Lokasi: Gedung Terminal Utama Lantai 1</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check-circle"></i>
+                                    <div>
+                                        <strong>Terminal Internasional</strong>
+                                        <p>Lokasi: Gedung Terminal Utama Lantai 1 (Area Khusus)</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check-circle"></i>
+                                    <div>
+                                        <strong>Area Immigration</strong>
+                                        <p>Tersedia 8 counters untuk proses imigrasi internasional</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check-circle"></i>
+                                    <div>
+                                        <strong>Area Baggage Claim</strong>
+                                        <p>4 carousel bagasi dengan sistem informasi real-time</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="info-section">
+                        <div class="info-header">
+                            <i class="fas fa-bus"></i>
+                            <h3>Transportasi dari Bandar udara</h3>
+                        </div>
+                        <div class="info-body">
+                            <p>Beberapa opsi transportasi tersedia untuk melanjutkan perjalanan dari Bandara Ahmad Yani:</p>
+                            <ul class="info-list">
+                                <li>
+                                    <i class="fas fa-taxi"></i>
+                                    <div>
+                                        <strong>Taxi</strong>
+                                        <p>Tersedia layanan taksi resmi dan aplikasi ride-sharing</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fas fa-bus"></i>
+                                    <div>
+                                        <strong>Bus Trans Semarang</strong>
+                                        <p>Koridor menuju pusat kota dan berbagai tujuan</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fas fa-car"></i>
+                                    <div>
+                                        <strong>Rental Mobil</strong>
+                                        <p>Layanan penyewaan mobil tersedia di area arrivals</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fas fa-motorcycle"></i>
+                                    <div>
+                                        <strong>Ojek Online</strong>
+                                        <p>Layanan ojek online dapat diakses di area penjemputan</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="info-section">
+                        <div class="info-header">
+                            <i class="fas fa-concierge-bell"></i>
+                            <h3>Fasilitas di Area Kedatangan</h3>
+                        </div>
+                        <div class="info-body">
+                            <div class="facility-grid">
+                                <div class="facility-item">
+                                    <i class="fas fa-utensils"></i>
+                                    <span>Restoran & Cafe</span>
+                                </div>
+                                <div class="facility-item">
+                                    <i class="fas fa-shopping-bag"></i>
+                                    <span>Toko Duty Free</span>
+                                </div>
+                                <div class="facility-item">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                    <span>Money Changer</span>
+                                </div>
+                                <div class="facility-item">
+                                    <i class="fas fa-wifi"></i>
+                                    <span>Free WiFi</span>
+                                </div>
+                                <div class="facility-item">
+                                    <i class="fas fa-wheelchair"></i>
+                                    <span>Fasilitas Disabilitas</span>
+                                </div>
+                                <div class="facility-item">
+                                    <i class="fas fa-first-aid"></i>
+                                    <span>Pos Kesehatan</span>
+                                </div>
+                                <div class="facility-item">
+                                    <i class="fas fa-phone"></i>
+                                    <span>Telekomunikasi</span>
+                                </div>
+                                <div class="facility-item">
+                                    <i class="fas fa-parking"></i>
+                                    <span>Area Parkir</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- KEBERANGKATAN TAB -->
+                <div id="keberangkatan" class="tab-content">
+                    <div class="info-section">
+                        <div class="info-header">
+                            <i class="fas fa-building"></i>
+                            <h3>Terminal Keberangkatan</h3>
+                        </div>
+                        <div class="info-body">
+                            <p>Terminal Keberangkatan Bandara Ahmad Yani menyediakan fasilitas modern untuk memastikan kenyamanan sebelum terbang. Proses check-in dan keamanan telah dipermudah dengan teknologi terkini.</p>
+                            <ul class="info-list">
+                                <li>
+                                    <i class="fas fa-check-circle"></i>
+                                    <div>
+                                        <strong>Terminal Domestik</strong>
+                                        <p>Lokasi: Gedung Terminal Utama Lantai 2</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check-circle"></i>
+                                    <div>
+                                        <strong>Terminal Internasional</strong>
+                                        <p>Lokasi: Gedung Terminal Utama Lantai 2 (Area Khusus)</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check-circle"></i>
+                                    <div>
+                                        <strong>Check-in Counters</strong>
+                                        <p>Total 48 counters untuk semua maskapai</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check-circle"></i>
+                                    <div>
+                                        <strong>Self Check-in Kiosk</strong>
+                                        <p>16 unit kiosk untuk check-in mandiri</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check-circle"></i>
+                                    <div>
+                                        <strong>Security Check</strong>
+                                        <p>6 line security check dengan teknologi</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fas fa-check-circle"></i>
+                                    <div>
+                                        <strong>Immigration</strong>
+                                        <p>10 counters untuk keberangkatan internasional</p>
+                                    </div>
+                                </li>
+                            </ul>
+                                <a href="https://www.google.com/aclk?sa=L&pf=1&ai=DChsSEwin2f2ivJCTAxV1pWYCHV05KSsYACICCAEQARoCc20&co=1&ase=2&gclid=Cj0KCQiA2bTNBhDjARIsAK89wlEph5UUjRR-_DbcKgyHyuZgMGctYicZzYFuz65z7kaOpJ5H1Q57zUcaAgRyEALw_wcB&ei=94GtabKjCLWH4-EPiPPvQQ&cid=CAASZuRoZr37YX7QEVfcPM1OPekZX0n4w2j4SMeH29hF9aIPL7_L6_3XMhgr_Lm630lqGybM_xX3ey9rUbGBDEmWlL9DjaLIqKp7ZmyMuMcB_TYbXYg93th26zVBW6ZnEziF_Oivo7SFrg&cce=2&category=acrcp_v1_32&sig=AOD64_1JbUradFkpPAmyPR0kTVlns24jfg&q&sqi=2&nis=4&adurl=https://www.traveloka.com/id-id/flight/airport/srg?id%3D5397789343195254260%26adloc%3Did-id%26kw%3D5397789343195254260_%26gmt%3D%26gn%3Dg%26gd%3Dc%26gdm%3D%26gcid%3D722308916069%26gdp%3D%26gdt%3D%26gap%3D%26pc%3D1%26aid%3D173622187871%26wid%3Ddsa-2378444660584%26fid%3D%26gid%3D1007719%26%26utm_id%3Dm5bpEVpJ%26ad_id%3D722308916069%26target_id%3Ddsa-2378444660584%26click_id%3DCj0KCQiA2bTNBhDjARIsAK89wlEph5UUjRR-_DbcKgyHyuZgMGctYicZzYFuz65z7kaOpJ5H1Q57zUcaAgRyEALw_wcB%26group_id%3D173622187871%26gad_source%3D1%26gad_campaignid%3D21929169482%26gbraid%3D0AAAAADi60Um670kQvZOyc6yVF-mdWlSTi%26gclid%3DCj0KCQiA2bTNBhDjARIsAK89wlEph5UUjRR-_DbcKgyHyuZgMGctYicZzYFuz65z7kaOpJ5H1Q57zUcaAgRyEALw_wcB&ved=2ahUKEwjy-vSivJCTAxW1wzgGHYj5OwgQ0Qx6BAgmEAE" class="cta-button">Pesan Tiket Pesawat <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="info-section">
+                        <div class="info-header">
+                            <i class="fas fa-passport"></i>
+                            <h3>Proses Check-in</h3>
+                        </div>
+                        <div class="info-body">
+                            <p>Ikuti langkah-langkah berikut untuk proses check-in yang lancar:</p>
+                            <ul class="info-list">
+                                <li>
+                                    <i class="fas fa-1"></i>
+                                    <div>
+                                        <strong>Datang Lebih Awal</strong>
+                                        <p>Datang minimal 2 jam sebelum keberangkatan domestik dan 3 jam untuk internasional</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fas fa-2"></i>
+                                    <div>
+                                        <strong>Check-in di Counter/Kiosk</strong>
+                                        <p>Gunakan counter maskapai atau kiosk self check-in</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fas fa-3"></i>
+                                    <div>
+                                        <strong>Penyerahan Bagasi</strong>
+                                        <p>Serahkan bagasi terdaftar di counter drop bagasi</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fas fa-4"></i>
+                                    <div>
+                                        <strong>Security Check</strong>
+                                        <p>Lalui proses pemeriksaan keamanan</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fas fa-5"></i>
+                                    <div>
+                                        <strong>Tunggu di Gate</strong>
+                                        <p>Pergi ke gate boarding sesuai boarding pass</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="info-section">
+                        <div class="info-header">
+                            <i class="fas fa-concierge-bell"></i>
+                            <h3>Fasilitas di Area Keberangkatan</h3>
+                        </div>
+                        <div class="info-body">
+                            <div class="facility-grid">
+                                <div class="facility-item">
+                                    <i class="fas fa-utensils"></i>
+                                    <span>Restoran & Cafe</span>
+                                </div>
+                                <div class="facility-item">
+                                    <i class="fas fa-shopping-bag"></i>
+                                    <span>Toko Duty Free</span>
+                                </div>
+                                <div class="facility-item">
+                                    <i class="fas fa-book"></i>
+                                    <span>Toko Buku & Majalah</span>
+                                </div>
+                                <div class="facility-item">
+                                    <i class="fas fa-wifi"></i>
+                                    <span>Free WiFi</span>
+                                </div>
+                                <div class="facility-item">
+                                    <i class="fas fa-charging-station"></i>
+                                    <span>Charging Station</span>
+                                </div>
+                                <div class="facility-item">
+                                    <i class="fas fa-crown"></i>
+                                    <span>VIP Lounge</span>
+                                </div>
+                                <div class="facility-item">
+                                    <i class="fas fa-wheelchair"></i>
+                                    <span>Fasilitas Disabilitas</span>
+                                </div>
+                                <div class="facility-item">
+                                    <i class="fas fa-gamepad"></i>
+                                    <span>Entertainment Area</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-section">
+                        <div class="info-header">
+                            <i class="fas fa-info-circle"></i>
+                            <h3>Informasi Penting</h3>
+                        </div>
+                        <div class="info-body">
+                            <ul class="info-list">
+                                <li>
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    <div>
+                                        <strong>Barang yang Tidak Boleh Dibawa</strong>
+                                        <p>Senjata, bahan peledak, cairan lebih dari 100ml, dan barang berbahaya lainnya tidak diperbolehkan dibawa ke kabin pesawat.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fas fa-suitcase"></i>
+                                    <div>
+                                        <strong>Ketentuan Bagasi</strong>
+                                        <p>Setiap maskapai memiliki kebijakan berbeda untuk bagasi kabin dan terdaftar. Silakan cek dengan maskapai masing-masing.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fas fa-passport"></i>
+                                    <div>
+                                        <strong>Dokumen Perjalanan</strong>
+                                        <p>Pastikan dokumen perjalanan Anda valid dan sesuai dengan tujuan perjalanan.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- AIRLINE TAB -->
+                <div id="airline" class="tab-content">
+                    <div class="info-section">
+                        <div class="info-header">
+                            <i class="fas fa-plane"></i>
+                            <h3>Maskapai Domestik</h3>
+                        </div>
+                        <div class="info-body">
+                            <div class="airline-grid">
+                                <div class="airline-card">
+                                    <div class="airline-logo">
+                                        <img src="pswt/garuda.png" alt="Garuda Indonesia Logo" style="width: 100%; height: auto;" border-radius: 10px;">
+                                    </div>
+                                    <div class="airline-info">
+                                        <h4>Garuda Indonesia</h4>
+                                        <p>Maskapai Nasional Indonesia</p>
+                                        <p class="status-badge">aktif</p>
+                                    </div>
+                                </div>
+                                <div class="airline-card">
+                                    <div class="airline-logo">
+                                        <img src="pswt/batik.png" alt="Batik Air Logo" style="width: 100%; height: auto;" border-radius: 10px;">
+                                    </div>
+                                    <div class="airline-info">
+                                        <h4>Batik Air</h4>
+                                        <p>Maskapai Nasional Indonesia</p>
+                                        <p class="status-badge">aktif</p>
+                                    </div>
+                                </div>
+                                <div class="airline-card">
+                                    <div class="airline-logo">
+                                        <img src="pswt/Lion.png" alt="Lion Air Logo" style="width: 100%; height: auto;" border-radius: 10px;">
+                                    </div>
+                                    <div class="airline-info">
+                                        <h4>Lion Air</h4>
+                                        <p>Maskapai Swasta Indonesia</p>
+                                        <p class="status-badge">aktif</p>
+                                    </div>
+                                </div>
+                                <div class="airline-card">
+                                    <div class="airline-logo">
+                                        <img src="pswt/super.png" alt="Super Air Jet Logo" style="width: 100%; height: auto;" border-radius: 10px;">
+                                    </div>
+                                    <div class="airline-info">
+                                        <h4>Super Air Jet</h4>
+                                        <p>Maskapai Low-cost Carrier</p>
+                                        <p class="status-badge">aktif</p>
+                                    </div>
+                                </div>
+                                <div class="airline-card">
+                                    <div class="airline-logo">
+                                        <img src="pswt/airasia.png" alt="AirAsia Indonesia Logo" style="width: 100%; height: auto;" border-radius: 10px;">
+                                    </div>
+                                    <div class="airline-info">
+                                        <h4>AirAsia Indonesia</h4>
+                                        <p>Maskapai Low-cost Carrier</p>
+                                        <p class="status-badge">aktif</p>
+                                    </div>
+                                </div>
+                                <div class="airline-card">
+                                    <div class="airline-logo">
+                                        <img src="pswt/sriwijaya.png" alt="Sriwijaya Air Logo" style="width: 100%; height: auto;" border-radius: 10px;">
+                                    </div>
+                                    <div class="airline-info">
+                                        <h4>Sriwijaya Air</h4>
+                                        <p>Maskapai Nasional Indonesia</p>
+                                        <p class="status-badge">aktif</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-section">
+                        <div class="info-header">
+                            <i class="fas fa-globe"></i>
+                            <h3>Maskapai Internasional</h3>
+                        </div>
+                        <div class="info-body">
+                            <div class="airline-grid">
+                                <div class="airline-card">
+                                    <div class="airline-logo">
+                                        <img src="pswt2/Scoot.png" alt="Scoot Logo" style="width: 100%; height: auto;" border-radius: 10px;">
+                                    </div>
+                                    <div class="airline-info">
+                                        <h4>Scoot</h4>
+                                        <p>Maskapai Internasional Singapura</p>
+                                        <p class="status-badge">aktif</p>
+                                    </div>
+                                </div>
+                                <div class="airline-card">
+                                    <div class="airline-logo">
+                                        <img src="pswt/airasia.png" alt="AirAsia Logo" style="width: 100%; height: auto;" border-radius: 10px;">
+                                    </div>
+                                    <div class="airline-info">
+                                        <h4>AirAsia</h4>
+                                        <p>Maskapai Internasional Malaysia</p>
+                                        <p class="status-badge">aktif</p>
+                                    </div>
+                                </div>
+                                <div class="airline-card">
+                                    <div class="airline-logo">
+                                        <img src="pswt2/Malindo.png" alt="Malindo Air Logo" style="width: 100%; height: auto;" border-radius: 10px;">
+                                    </div>
+                                    <div class="airline-info">
+                                        <h4>Malindo Air</h4>
+                                        <p>Maskapai Internasional Malaysia</p>
+                                        <p class="status-badge">aktif</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-section">
+                        <div class="info-header">
+                            <i class="fas fa-headset"></i>
+                            <h3>Kontak Maskapai Domestik</h3>
+                        </div>
+                        <div class="info-body">
+                            <ul class="info-list">
+                                <li>
+                                    <i class="fas fa-phone"></i>
+                                    <div>
+                                        <strong>Garuda Indonesia</strong>
+                                        <p>021-8080 8080 | www.garuda-indonesia.com</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fas fa-phone"></i>
+                                    <div>
+                                        <strong>Batik Air</strong>
+                                        <p>021-6379 8000 | www.batikair.com</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fas fa-phone"></i>
+                                    <div>
+                                        <strong>Lion Air</strong>
+                                        <p>021-6370 0211 | www.lionair.co.id</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fas fa-phone"></i>
+                                    <div>
+                                        <strong>Super Air Jet</strong>
+                                        <p>021-5085 8000 | www.superairjet.com</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fas fa-phone"></i>
+                                    <div>
+                                        <strong>AirAsia Indonesia</strong>
+                                        <p>021-2927 0999 | www.airasia.com</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <i class="fas fa-phone"></i>
+                                    <div>
+                                        <strong>Sriwijaya Air</strong>
+                                        <p>021-2927 9777 | www.sriwijayaair.co.id</p>
+                                    </div>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- FOOTER (bawah website) -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-kolom">
+                <h4>AHMAD YANI AIRPORT</h4>
+                <p>Bandara Ahmad Yani merupakan pintu gerbang</p>
+                <p>penerbangan di Jawa Tengah.</p>
+                <p>Memberikan pelayanan terbaik</p>
+                <p>bagi kenyamanan perjalanan Anda</p>        
+                <p class="logo-footer">
+                    <img src="Angkasa.png" alt="Logo Angkasa"></p>
+            </div>
+            
+            <div class="footer-kolom">
+                <h4>NAVIGASI</h4>
+                <ul class="footer-menu">
+                    <li><a href="Bandara.html#home">Home</a></li>
+                    <li><a href="Bandara.html#profil">Profil</a></li>
+                    <li><a href="Bandara.html#fasilitas">Fasilitas</a></li>
+                    <li><a href="Bandara.html#galeri">Galeri</a></li>
+                    <li><a href="Bandara.html#kontak">Kontak</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-kolom">
+                <h4>HUBUNGI KAMI</h4>
+                <p>Alamat: Jl. Bandara Ahmad Yani, Semarang</p>
+                <p>Telepon: +62 24 86000600</p>
+                <p>Email: contact@injourneyairports.id</p>
+            </div>
+
+            <div class="footer-kolom">
+                <h4>IKUTI KAMI</h4>
+                    <div class="ikon-sosial">
+                    <a href="https://web.facebook.com/BandaraAhmadYani/?locale=id_ID&_rdc=1&_rdr#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/semarangairport/"><i class="fab fa-instagram"></i></a>
+                    <a href="https://x.com/SemarangAP1"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.youtube.com/hashtag/bandaraahmadyani"><i class="fab fa-youtube"></i></a>
+                    <p class="logo-footer1">
+                        <img src="Ahmadyaniairportlogo.png" alt="Logo Angkasa"></p>
+                    </div>
+            </div>
+        </div>
+        </div>
+        <div class="footer-bawah">
+            <p>&copy; 2026 Ahmad Yani Airport. All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <script src="Bandara.js"></script>
+    <script>
+        function openTab(tabName) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Show the selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to the clicked button
+            const clickedBtn = event.currentTarget;
+            clickedBtn.classList.add('active');
+        }
+    </script>
+</body>
+</html>
